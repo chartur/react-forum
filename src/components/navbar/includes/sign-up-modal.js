@@ -1,8 +1,7 @@
 import Modal from "../../modal/modal";
 import {forwardRef, useImperativeHandle, useRef, useState} from "react";
-import environments from "../../../environments";
 
-const SignUpModal = forwardRef((props , ref) => {
+const SignUpModal = forwardRef(({ onSubmit } , ref) => {
   const modal = useRef();
   const loginForm = useRef();
 
@@ -10,9 +9,10 @@ const SignUpModal = forwardRef((props , ref) => {
     ref,
     () => ({
       open,
-      close
+      close,
+      reset
     })
-  )
+  );
 
   const register = async () => {
     const formData = new FormData(loginForm.current);
@@ -20,32 +20,18 @@ const SignUpModal = forwardRef((props , ref) => {
     for(let k of formData.keys()) {
       userData[k] = formData.get(k);
     }
+
     userData.image = {
       filePath: 'https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/result.jpeg',
       name: 'result.jpeg'
-    }
-    console.log(userData);
-    try {
-      const res = await signUpRequest(userData);
+    };
 
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  const signUpRequest = (body) => {
-    return fetch(environments.endpoints.doRegister, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
-  }
+    onSubmit(userData);
+  };
 
   const open = () => modal.current.open();
   const close = () => modal.current.close();
+  const reset = () => loginForm.current.reset();
 
   const modalButtons = {
     cancel: {
@@ -58,7 +44,7 @@ const SignUpModal = forwardRef((props , ref) => {
   }
 
   return (
-    <Modal header="Sign Up" buttons={modalButtons} ref={modal}>
+    <Modal header="Sign Up" buttons={modalButtons} ref={modal} onClose={() => loginForm.current.reset()}>
       <form ref={loginForm}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
@@ -77,6 +63,6 @@ const SignUpModal = forwardRef((props , ref) => {
       </form>
     </Modal>
   )
-})
+});
 
 export default SignUpModal;

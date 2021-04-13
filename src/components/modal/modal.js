@@ -19,6 +19,7 @@ export const Modal = forwardRef((props, ref) => {
 
   const close = () => {
     setShow(false);
+    props.onClose();
   }
 
   const onDismiss = () => {
@@ -57,6 +58,7 @@ Modal.propTypes = {
   size: PropTypes.string,
   header: PropTypes.string.isRequired,
   onDismissable: PropTypes.bool,
+  onClose: PropTypes.func,
   buttons: PropTypes.shape({
     cancel: PropTypes.shape({
       text: PropTypes.string,
@@ -72,6 +74,7 @@ Modal.defaultProps = {
   size: '',
   header: 'Modal',
   onDismissable: false,
+  onClose: () => {},
   buttons: {
     cancel: {
       text: 'Cancel',

@@ -33,7 +33,7 @@ export const Posts = ({ postsData, storeAllLoadedUsers }) => {
     return (
       <>
         <div className="d-flex justify-content-between align-items-center">
-          <h1 className="mt-3">
+          <h1>
             Posts
           </h1>
           <button className="btn btn-success" onClick={() => modal.current.open()}>

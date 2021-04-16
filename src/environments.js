@@ -1,33 +1,5 @@
-export default {
+const envirements = {
   host: 'http://localhost:5000/',
-
-   fetch: (url, request) => {
-    return new Promise(async (resolve, reject) => {
-      request.headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      };
-      const fetchResult = await fetch(url, request); //Making the req
-      const result = await fetchResult.json(); // parsing the response
-
-      if (fetchResult.ok) {
-        return resolve(result); // return success object
-      }
-
-
-      const responseError = {
-        type: 'Error',
-        message: result.message || 'Something went wrong',
-        data: result.data || '',
-        code: result.code || '',
-      };
-
-      const error = new Error();
-      error.info = responseError;
-
-      return reject(error);
-    });
-  },
 
   get endpoints() {
     return {
@@ -36,4 +8,6 @@ export default {
       fetchUser: `${this.host}auth/token`,
     }
   }
-}
+};
+
+export default envirements;

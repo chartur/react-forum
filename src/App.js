@@ -9,9 +9,9 @@ import {signIn} from "./actions/auth.actions";
 import AuthService from "./services/auth.service";
 
 const App = ({ store }) => {
-  const authService = new AuthService();
 
   useEffect(() => {
+    const authService = new AuthService();
     const getLoggedInUserData = async () => {
       const { data } = await authService.token();
       store.dispatch(signIn(data));
@@ -24,7 +24,7 @@ const App = ({ store }) => {
         console.log(e);
       }
     }
-  }, []);
+  }, [store]);
 
   return (
     <Provider store={store}>

@@ -4,7 +4,7 @@ const Post = ({ post }) => {
       <div className="card-body">
         <h5 className="card-title">{post.title}</h5>
         <p className="card-text">{post.body}</p>
-        <a href="#" className="btn btn-primary">Go somewhere</a>
+        <span href="#" className="btn btn-primary">Go somewhere</span>
       </div>
     </div>
   )

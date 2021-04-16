@@ -5,7 +5,7 @@ import {
   POST_SAVE
 } from '../actions/posts.actions'
 
-export default (state = {
+const postsReducer = (state = {
   loaded: false,
   posts: [],
 }, action) => {
@@ -15,19 +15,19 @@ export default (state = {
         ...state,
         loaded: true,
         posts: action.payload.posts
-      }
+      };
       break;
     case POST_UPDATE:
       state = {
         ...state,
         posts: state.posts.map((p) => p.id === action.payload.postId ? action.payload.post : p)
-      }
+      };
       break;
     case POST_DELETE:
       state = {
         ...state,
         posts: state.posts.filter((p) => p.id !== action.payload.postId)
-      }
+      };
       break;
     case POST_SAVE:
       state = {
@@ -36,8 +36,12 @@ export default (state = {
           action.payload.post,
           ...state.posts
         ]
-      }
+      };
+      break;
+    default:
       break;
   }
   return state;
-}
+};
+
+export default postsReducer;

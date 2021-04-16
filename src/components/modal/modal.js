@@ -9,7 +9,7 @@ export const Modal = forwardRef((props, ref) => {
       open,
       close
     }),
-  )
+  );
 
   const [modalShow, setShow] = useState(false);
 

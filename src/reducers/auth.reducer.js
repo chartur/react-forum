@@ -3,7 +3,7 @@ import {
   SIGN_OUT
 } from "../actions/auth.actions";
 
-export default (state = {
+const authReducer = (state = {
   loggedIn: false,
   token: null,
   authUser: null
@@ -27,7 +27,11 @@ export default (state = {
         loggedIn: false
       };
       break;
+    default:
+      break;
   }
 
   return state;
-}
+};
+
+export default authReducer;

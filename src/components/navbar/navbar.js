@@ -1,13 +1,21 @@
 import {Link, NavLink} from "react-router-dom";
 import {useRef, useState} from "react";
+import {connect} from "react-redux";
+
+import Modal from '../modal/modal'
+import Loading from '../loading/loading';
 import SignUpModal from "./includes/sign-up-modal";
 import SignInModal from "./includes/sign-in-modal";
-import {connect} from "react-redux";
-import {signIn, signOut} from "../../actions/auth.actions";
-import Modal from '../modal/modal'
+
 import AuthService from '../../services/auth.service';
+import {signIn, signOut} from "../../actions/auth.actions";
+import ProfileDropdown from "./profile-dropdown/profile-dropdown";
+
 
 const Navbar = ({ authUser, loginAction, logoutAction }) => {
+
+  const loading = useRef();
+
   const authService = new AuthService();
 
   const [mobileMenuShow, setShow] = useState(false);
@@ -36,6 +44,7 @@ const Navbar = ({ authUser, loginAction, logoutAction }) => {
   };
 
   const onSignUpFormSubmit = async (userData) => {
+    loading.current.display();
     try {
       const { data } = await authService.doRegister(userData);
       console.log(data);
@@ -45,16 +54,19 @@ const Navbar = ({ authUser, loginAction, logoutAction }) => {
     } catch (e) {
       console.error(e);
     }
+    loading.current.hide();
   };
   const onSignInFormSubmit = async (userData) => {
+    loading.current.display();
     try {
       const { data } = await authService.doLogin(userData);
       loginAction(data);
-      signUpModalRef.current.close();
-      signUpModalRef.current.reset();
+      signInModalRef.current.close();
+      signInModalRef.current.reset();
     } catch (e) {
       console.error(e);
     }
+    loading.current.hide();
   };
 
   const openSignUpModal = () => signUpModalRef.current.open();
@@ -86,19 +98,13 @@ const Navbar = ({ authUser, loginAction, logoutAction }) => {
             <li className="nav-item">
               <NavLink activeClassName="active" className="nav-link" to="/posts">Posts</NavLink>
             </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">Disabled</a>
-            </li>
           </ul>
           <ul className="navbar-nav">
             {
               authUser.loggedIn
                 ? (
                   <li className="nav-item">
-                    <span className="nav-link cursor-pointer" onClick={openLogOutModal}>
-                      <i className="fas fa-sign-out-alt mr-2"/>
-                      <span>Log Out</span>
-                    </span>
+                    <ProfileDropdown logoutAction={openLogOutModal}/>
                   </li>
                 )
                 : (
@@ -128,6 +134,8 @@ const Navbar = ({ authUser, loginAction, logoutAction }) => {
       <Modal size="sm" header="Do you want to logout" buttons={logoutModalButtons} ref={logOutModalRef}>
         <p>Are you sure that you want to logout?</p>
       </Modal>
+
+      <Loading ref={loading}/>
     </>
   )
 };

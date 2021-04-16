@@ -1,4 +1,4 @@
-export default (request) => {
+const accessTokenInterceptor = (request) => {
   const token = localStorage.getItem('jwt_auth');
   console.log(request);
   if(token) {
@@ -9,4 +9,6 @@ export default (request) => {
   }
 
   return request;
-}
+};
+
+export default accessTokenInterceptor;

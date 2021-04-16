@@ -1,4 +1,3 @@
-import store from "../../store";
 import { connect } from "react-redux";
 import { storeUsers } from "../../actions/users.actions";
 
@@ -10,17 +9,18 @@ const Home = (props) => {
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   return (
     <button className="btn btn-success" onClick={getUsers}>Get users</button>
   )
-}
+};
+
 const mapStateToProps = (state) => {
   return {
     users: state.UserReducer,
   }
-}
+};
 
 const mapDispatchToProp = (dispatch) => {
   return {
@@ -28,6 +28,6 @@ const mapDispatchToProp = (dispatch) => {
       dispatch(storeUsers(users));
     }
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProp)(Home)

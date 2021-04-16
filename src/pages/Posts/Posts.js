@@ -9,21 +9,26 @@ export const Posts = ({ postsData, storeAllLoadedUsers }) => {
     const modal = useRef();
 
     useEffect( () => {
+      const getPosts = async () => {
+        try {
+          const loadedUsers = await fetch('https://jsonplaceholder.typicode.com/posts').then(res => res.json());
+          return storeAllLoadedUsers(loadedUsers);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
       if(!postsData.loaded) {
         (async function () {
           await getPosts();
         })()
       }
-    }, [])
-
-    const getPosts = async () => {
-      try {
-        const loadedUsers = await fetch('https://jsonplaceholder.typicode.com/posts').then(res => res.json());
-        return storeAllLoadedUsers(loadedUsers);
-      } catch (e) {
-        console.error(e);
-      }
-    }
+    },
+      [
+        postsData,
+        storeAllLoadedUsers
+      ]
+    );
 
 
     const getNewPostData = (data) => {

@@ -1,5 +1,5 @@
 import Modal from "../../modal/modal";
-import {forwardRef, useImperativeHandle, useRef, useState} from "react";
+import {forwardRef, useImperativeHandle, useRef} from "react";
 
 const SignUpModal = forwardRef(({ onSubmit } , ref) => {
   const modal = useRef();

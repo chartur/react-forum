@@ -1,7 +1,7 @@
 import { useState, useImperativeHandle, forwardRef } from 'react';
 import './loading.css';
 
-const Loading = forwardRef((props, ref) => {
+const Loading = forwardRef(({displayed = false}, ref) => {
 
   useImperativeHandle(
     ref,
@@ -12,7 +12,7 @@ const Loading = forwardRef((props, ref) => {
     })
   );
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(displayed);
 
   const display = () => {
     setLoading(true);

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux'
 
-const ProfileDropdown = ({ logoutAction }) => {
-
+const ProfileDropdown = ({ authUser, logoutAction }) => {
   const [visibility, setVisibility] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const ProfileDropdown = ({ logoutAction }) => {
     <>
       <div className="position-relative cursor-pointer">
         <div className="nav-link dropdown-toggle" onClick={toggle}>
-          <span>Profile</span>
+          <span>{authUser.authUser.name}</span>
         </div>
         <div className={`text-left dropdown-menu dropdown-menu-right ${visibility ? 'show' : ''}`} >
           <NavLink to="/profile" className="dropdown-item">
@@ -54,4 +54,10 @@ const ProfileDropdown = ({ logoutAction }) => {
   )
 };
 
-export default ProfileDropdown;
+const mapPropsToState = (state) => {
+  return {
+    authUser: state.AuthReducer
+  }
+};
+
+export default connect(mapPropsToState)(ProfileDropdown);

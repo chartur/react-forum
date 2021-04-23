@@ -9,6 +9,7 @@ import {signIn} from "./actions/auth.actions";
 import AuthService from "./services/auth.service";
 import Profile from "./pages/Profile/Profile";
 import Loading from './components/loading/loading';
+import Toaster from "./components/toaster/toaster";
 
 const App = ({ store }) => {
 
@@ -72,7 +73,10 @@ const App = ({ store }) => {
                   </div>
                 </div>
               </Router>
+
+              <Toaster />
             </Provider>
+
           )
       }
     </>

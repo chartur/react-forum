@@ -1,4 +1,12 @@
-const ProfileForm = ({ user }) => {
+import {connect} from "react-redux";
+import {errorToast, successToast} from "../../../actions/toaster.actions";
+
+const ProfileForm = ({ user, successToast, errorToast }) => {
+
+  const showToaster = () => {
+    successToast('gago');
+  }
+
   return (
     <form>
       <div className="form-group">
@@ -11,10 +19,18 @@ const ProfileForm = ({ user }) => {
       </div>
 
       <div className="d-flex justify-content-end">
-        <button className="btn btn-success">Save</button>
+        <button type="button" className="btn btn-success" onClick={showToaster}>Save</button>
       </div>
     </form>
   )
 };
 
-export default ProfileForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    errorToast: (message) => dispatch(errorToast(message)),
+    successToast: (message) => dispatch(successToast(message)),
+  }
+}
+
+
+export default connect(undefined, mapDispatchToProps)(ProfileForm);

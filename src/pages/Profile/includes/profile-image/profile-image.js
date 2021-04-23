@@ -9,7 +9,6 @@ import {signIn} from "../../../../actions/auth.actions";
 
 const ProfileImage = ({ user, errorToast, updateUserData, successToast }) => {
 
-  console.log(user);
   const profileService = new ProfileService();
   const [image, setImage] = useState(user?.image?.filePath ?? null);
   const splitName = user.name.split(' ').map((part) => part[0].toUpperCase()).join('');

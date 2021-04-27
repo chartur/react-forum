@@ -1,32 +1,73 @@
 import { connect } from "react-redux";
-import { storeUsers } from "../../actions/users.actions";
+import {storeLastPosts} from "../../actions/posts.actions";
+import Post from "../../components/Post";
+import {useEffect, useRef, useState} from "react";
+import InnerLoading from "../../components/loading/inner-loading";
+import PostsService from "../../services/posts.service";
+import {errorToast} from "../../actions/toaster.actions";
 
 const Home = (props) => {
-  const getUsers = async () => {
+
+  const {
+    lastPosts,
+    storeLastPosts,
+    errorToaster
+  } = props;
+  const postsService = new PostsService();
+  const [lastPostsLoading, setLastPostsLoading] = useState(true);
+
+  const getLastPosts = async () => {
     try {
-      const res = await fetch('https://jsonplaceholder.typicode.com/users').then(res => res.json());
-      props.storeUsers(res);
+      const res = await postsService.getLastPosts();
+      const { data } = res;
+      storeLastPosts(data.posts);
     } catch (e) {
-      console.error(e);
+      errorToaster(e.message);
     }
-  };
+    setLastPostsLoading(false);
+  }
+
+  useEffect(() => {
+    if(!lastPosts.loaded) {
+      getLastPosts();
+    }else{
+      setLastPostsLoading(false);
+    }
+  }, [lastPostsLoading])
 
   return (
-    <button className="btn btn-success" onClick={getUsers}>Get users</button>
+    <>
+      <h1>Last Post</h1>
+      <hr/>
+      {
+        !lastPostsLoading ?
+          lastPosts.posts.length
+            ? <div className="row">
+                {lastPosts.posts.map((post, index) => (
+                  <div key={post._id} className="col-12 col-md-6">
+                    <Post post={post} />
+                  </div>
+                ))}
+              </div>
+            : <p className="text-muted text-center">
+                There are no posts
+              </p>
+          : <InnerLoading />
+      }
+    </>
   )
-};
+}
 
 const mapStateToProps = (state) => {
   return {
-    users: state.UserReducer,
+    lastPosts: state.PostsReducer.lastPosts,
   }
 };
 
 const mapDispatchToProp = (dispatch) => {
   return {
-    storeUsers: (users) => {
-      dispatch(storeUsers(users));
-    }
+    storeLastPosts: (posts) => dispatch(storeLastPosts(posts)),
+    errorToaster: (message) => dispatch(errorToast(message))
   }
 };
 

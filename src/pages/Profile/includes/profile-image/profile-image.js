@@ -59,7 +59,7 @@ const ProfileImage = ({ user, errorToast, updateUserData, successToast }) => {
       <label htmlFor="avatar-image" className="avatar">
         {
           image
-            ? <img src={image} />
+            ? <img src={image} alt="Profile avatar" />
             : <div className="short-name">{splitName}</div>
         }
         <input id="avatar-image" type="file" name="avatar" accept=".jpg, .jpeg, .png" onChange={selectFile}/>

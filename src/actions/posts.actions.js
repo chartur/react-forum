@@ -1,41 +1,16 @@
-export const POSTS_STORE = 'post_store';
-export const POST_UPDATE = 'post_update';
-export const POST_DELETE = 'post_delete';
-export const POST_SAVE = 'post_save';
+export const POSTS_LAST_STORE = 'posts_last_store';
+export const CREATE_NEW_POST = 'create_new_post';
 
-export const storePosts = (posts) => {
+export const storeLastPosts = (data) => {
   return {
-    type: POSTS_STORE,
-    payload: {
-      posts
-    }
+    type: POSTS_LAST_STORE,
+    payload: data
   }
 }
 
-export const updatePost = (postId, post) => {
+export const createNewPost = (postData) => {
   return {
-    type: POST_UPDATE,
-    payload: {
-      postId,
-      post
-    }
-  }
-}
-
-export const deletePost = (postId) => {
-  return {
-    type: POST_DELETE,
-    payload: {
-      postId
-    }
-  }
-}
-
-export const savePost = (post) => {
-  return {
-    type: POST_SAVE,
-    payload: {
-      post
-    }
+    type: CREATE_NEW_POST,
+    payload: postData
   }
 }

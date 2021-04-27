@@ -11,6 +11,8 @@ const AddPostModal = ({ modal, getNewPostData }) => {
       data[key] = formData.get(key);
     }
 
+    modal.current.close();
+    newPostForm.current.reset();
     return getNewPostData(data);
   }
 
@@ -37,7 +39,7 @@ const AddPostModal = ({ modal, getNewPostData }) => {
 
         <div className="form-group">
           <label htmlFor="body">Body</label>
-          <textarea id="body" name="body" placeholder="Input your post body" className="form-control form-control-sm" rows="4" />
+          <textarea id="body" name="content" placeholder="Input your post body" className="form-control form-control-sm" rows="4" />
         </div>
       </form>
     </Modal>

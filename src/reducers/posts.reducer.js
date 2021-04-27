@@ -1,42 +1,43 @@
 import {
-  POSTS_STORE,
-  POST_UPDATE,
-  POST_DELETE,
-  POST_SAVE
+  POSTS_LAST_STORE,
+  CREATE_NEW_POST,
 } from '../actions/posts.actions'
 
 const postsReducer = (state = {
-  loaded: false,
-  posts: [],
+  lastPosts: {
+    loaded: false,
+    posts: []
+  },
+  all: {
+    loaded: false,
+    posts: []
+  },
 }, action) => {
   switch (action.type) {
-    case POSTS_STORE:
+    case POSTS_LAST_STORE:
       state = {
         ...state,
-        loaded: true,
-        posts: action.payload.posts
-      };
+        lastPosts: {
+          loaded: true,
+          posts: action.payload
+        }
+      }
       break;
-    case POST_UPDATE:
+    case CREATE_NEW_POST:
+      const lastPosts = [...state.lastPosts.posts];
+      if(lastPosts.length === 10) {
+        lastPosts.shift();
+      }
       state = {
-        ...state,
-        posts: state.posts.map((p) => p.id === action.payload.postId ? action.payload.post : p)
-      };
-      break;
-    case POST_DELETE:
-      state = {
-        ...state,
-        posts: state.posts.filter((p) => p.id !== action.payload.postId)
-      };
-      break;
-    case POST_SAVE:
-      state = {
-        ...state,
-        posts: [
-          action.payload.post,
-          ...state.posts
-        ]
-      };
+        all: {
+          ...state.all,
+          posts: [...state.all.posts, action.payload]
+        },
+        lastPosts: {
+          ...state.lastPosts,
+          posts: [...lastPosts, action.payload]
+        }
+      }
       break;
     default:
       break;

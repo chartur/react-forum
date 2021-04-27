@@ -1,10 +1,6 @@
 import ProfileForm from "./includes/profile-form";
 import { connect } from 'react-redux'
 import ProfileImage from "./includes/profile-image/profile-image";
-import {
-  errorToast,
-  successToast
-} from "../../actions/toaster.actions";
 
 const Profile = ({ user }) => {
   return (
@@ -15,7 +11,7 @@ const Profile = ({ user }) => {
           <ProfileImage user={user.authUser}/>
         </div>
         <div className="col-8 col-md-4">
-          <ProfileForm user={user} />
+          <ProfileForm user={user.authUser} />
         </div>
       </div>
     </>
@@ -27,9 +23,5 @@ const mapPropsToState = (state) => {
     user: state.AuthReducer,
   }
 };
-
-const mapDispatchToProps = (dispatch) => {
-
-}
 
 export default connect(mapPropsToState)(Profile);

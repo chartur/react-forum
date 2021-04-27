@@ -9,6 +9,11 @@ const envirements = {
 
       // Profile
       profileAvatar: `${this.host}profile/image`, // PUT
+      profileDetails: `${this.host}profile/details`, // PUT
+
+      // Posts
+      getLastPosts: `${this.host}posts/latest`, // GET
+      createPost: `${this.host}posts` // POST
     }
   }
 };

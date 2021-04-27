@@ -17,4 +17,8 @@ export default class ProfileService {
   updateProfileImage = (imageData) => {
     return this.#http.put(environments.endpoints.profileAvatar, imageData)
   }
+
+  updateProfileDetails = (profileData) => {
+    return this.#http.put(environments.endpoints.profileDetails, profileData)
+  }
 }

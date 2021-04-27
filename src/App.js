@@ -26,19 +26,21 @@ const App = ({ store }) => {
   useEffect(() => {
     const authService = new AuthService();
     const getLoggedInUserData = async () => {
-      const { data } = await authService.token();
-      store.dispatch(signIn(data));
+      try {
+        const { data } = await authService.token();
+        store.dispatch(signIn(data));
+      } catch (e) {
+        localStorage.removeItem('jwt_auth');
+        setInit(true);
+      }
+
     };
     const jwtToken = localStorage.getItem('jwt_auth');
     if(jwtToken) {
-      try {
-        (async() => {
-          await getLoggedInUserData(jwtToken);
-          setInit(true);
-        })()
-      } catch (e) {
-        console.log(e);
-      }
+      (async() => {
+        await getLoggedInUserData(jwtToken);
+        setInit(true);
+      })()
     } else {
       setInit(true);
     }

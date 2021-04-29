@@ -2,6 +2,7 @@ import axios from 'axios';
 import environments from "../environments";
 import jsonInterceptor from '../interceptors/json.interceptor'
 import acceptTokenInterceptor from '../interceptors/access-token.interceptor'
+import socketIdInterceptor from "../interceptors/socket-id.interceptor";
 
 export default class AuthService {
 
@@ -11,6 +12,7 @@ export default class AuthService {
     this.#http.interceptors.request.use((req) => {
       jsonInterceptor(req);
       acceptTokenInterceptor(req);
+      socketIdInterceptor(req)
       return req;
     });
   }

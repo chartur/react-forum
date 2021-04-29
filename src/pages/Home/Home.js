@@ -44,8 +44,8 @@ const Home = (props) => {
           lastPosts.posts.length
             ? <div className="row">
                 {lastPosts.posts.map((post, index) => (
-                  <div key={post._id} className="col-12 col-md-6">
-                    <Post post={post} />
+                  <div key={post._id} className="col-12 col-md-6 mb-3">
+                    <Post post={post} showSortDesc={true} />
                   </div>
                 ))}
               </div>

@@ -35,7 +35,7 @@ const postsReducer = (state = {
         },
         lastPosts: {
           ...state.lastPosts,
-          posts: [...lastPosts, action.payload]
+          posts: [ action.payload, ...lastPosts]
         }
       }
       break;

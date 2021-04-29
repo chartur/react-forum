@@ -1,5 +1,6 @@
 const envirements = {
   host: 'http://localhost:5000/',
+  socketHost: 'http://localhost:9000/',
 
   get endpoints() {
     return {

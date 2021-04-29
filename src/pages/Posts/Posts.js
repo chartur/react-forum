@@ -28,13 +28,13 @@ export const Posts = (props) => {
       const postData = res.data.post;
       createPost(postData);
     } catch (e) {
-      errorToaster(e.message)
+      errorToaster(e?.response?.data?.message)
     }
     loadingRef.current.hide()
   }
 
   return (
-    <>
+    <div className="posts-page">
       <div className="d-flex justify-content-between align-items-center">
         <h1>
           Posts
@@ -61,7 +61,7 @@ export const Posts = (props) => {
 
       <AddPostModal modal={modal} getNewPostData={savePost}/>
       <Loading ref={loadingRef} />
-    </>
+    </div>
   )
 }
 

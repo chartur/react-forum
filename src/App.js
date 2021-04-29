@@ -10,6 +10,8 @@ import AuthService from "./services/auth.service";
 import Profile from "./pages/Profile/Profile";
 import Loading from './components/loading/loading';
 import Toaster from "./components/toaster/toaster";
+import PostPage from "./pages/Post/PostPage";
+import Footer from "./components/footer";
 
 const App = ({ store }) => {
 
@@ -57,7 +59,7 @@ const App = ({ store }) => {
               <Router>
                 <div className="container">
                   <Navbar />
-                  <div className="mt-4">
+                  <div className="mt-4 mb-4">
                     <Route exact path="/">
                       <Home />
                     </Route>
@@ -72,10 +74,13 @@ const App = ({ store }) => {
                         loggedIn ? <Profile /> : <Redirect to="/"/>
                       }
                     </Route>
+                    <Route path="/post/:postId">
+                      <PostPage />
+                    </Route>
                   </div>
+                  <Footer />
                 </div>
               </Router>
-
               <Toaster />
             </Provider>
 

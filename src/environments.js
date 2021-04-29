@@ -17,7 +17,8 @@ const envirements = {
 
       // Posts
       getLastPosts: `${this.host}posts/latest`, // GET
-      createPost: `${this.host}posts` // POST
+      createPost: `${this.host}posts`, // POST
+      getPost: `${this.host}posts/:postId` // GET
     }
   }
 };

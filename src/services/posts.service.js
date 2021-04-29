@@ -23,4 +23,9 @@ export default class PostsService {
   createPost(postData) {
     return this.#http.post(environments.endpoints.createPost, postData)
   }
+
+  getPost(postId) {
+    const url = environments.endpoints.getPost.replace(':postId', postId);
+    return this.#http.get(url);
+  }
 }

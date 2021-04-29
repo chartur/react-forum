@@ -21,11 +21,6 @@ const SignUpModal = forwardRef(({ onSubmit } , ref) => {
       userData[k] = formData.get(k);
     }
 
-    userData.image = {
-      filePath: 'https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/result.jpeg',
-      name: 'result.jpeg'
-    };
-
     onSubmit(userData);
   };
 

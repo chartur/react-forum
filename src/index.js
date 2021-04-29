@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
+import socketInit from "./socket.init";
+
+socketInit(store);
 
 ReactDOM.render(
   <React.StrictMode>

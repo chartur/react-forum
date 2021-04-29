@@ -2,6 +2,7 @@ import axios from "axios";
 import environments from "../environments";
 import jsonInterceptor from "../interceptors/json.interceptor";
 import acceptTokenInterceptor from "../interceptors/access-token.interceptor";
+import socketIdInterceptor from "../interceptors/socket-id.interceptor";
 
 export default class ProfileService {
   #http = axios.create();
@@ -10,6 +11,7 @@ export default class ProfileService {
     this.#http.interceptors.request.use((req) => {
       jsonInterceptor(req);
       acceptTokenInterceptor(req);
+      socketIdInterceptor(req)
       return req;
     });
   }

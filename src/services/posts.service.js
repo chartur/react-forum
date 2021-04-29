@@ -2,6 +2,7 @@ import axios from "axios";
 import jsonInterceptor from "../interceptors/json.interceptor";
 import environments from "../environments";
 import accessTokenInterceptor from "../interceptors/access-token.interceptor";
+import socketIdInterceptor from "../interceptors/socket-id.interceptor";
 
 export default class PostsService {
   #http = axios.create();
@@ -10,6 +11,7 @@ export default class PostsService {
     this.#http.interceptors.request.use((req) => {
       accessTokenInterceptor(req);
       jsonInterceptor(req);
+      socketIdInterceptor(req)
       return req;
     })
   }

@@ -1,6 +1,9 @@
 const envirements = {
-  host: 'http://localhost:5000/',
-  socketHost: 'http://localhost:9000/',
+  // host: 'http://localhost:5000/',
+  // socketHost: 'ws://localhost:5000/',
+  //
+  host: 'https://mern-forum-app.herokuapp.com/',
+  socketHost: 'ws://mern-forum-app.herokuapp.com/',
 
   get endpoints() {
     return {
